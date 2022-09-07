@@ -1,0 +1,2 @@
+DB_URL=mongodb+srv://orison:crazydragon@cluster0.oaz8a4g.mongodb.net/schoolAPI?retryWrites=true&w=majority
+node_modules
