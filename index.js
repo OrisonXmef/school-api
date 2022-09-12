@@ -11,7 +11,7 @@ connectDb();
 //middlewares
 app.use(express.json())
 app.use(morgan("dev"))
-app.use("/users", userRoute)
+app.use("/api/users", userRoute)
 
 app.get("/", (req, res) => {
     res.send("welcome to our school portal")

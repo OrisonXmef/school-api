@@ -1,19 +1,30 @@
-const User=require ("../models/userSchema")
-const bcryptjs = ("bcryptjs")
+const { restart } = require("nodemon")
+const User = require("../models/userSchema")
+const bcrypt = require("bcrypt")
+const {validate} = require  ("../config/validator")
 
-const addUser = async(req,res) =>{
-    const salt =await bcryptjs.gensalt(10)
-    const hsahedpassword =await bcryptjs.hashed(req.body.password,salt)
-    const newUser = new User({
-        username:req.body.username,
-        email:req.body.email,
-        password:req.body.password
-    });
-    await newUser.save();
-    res.status(201).json({
-    _id: newUser._id,
-    username: newUser.username,
-    email:newUser.email
-})
-}
+//adding a userc
+const addUser = async (req, res) => {
+   const {username,email,password} = req.body;
+   const valid = await validate({username,email,password});
+   if (valid) {
+        const hashedPassword = await bcrypt.hash(valid.password, 8)
+      const savedUser =await User.create({
+         username,
+         email,
+         password: hashedPassword,
+      });
+      res.status(201).json({
+         success:true,
+         message: "user created",
+         savedUser,
+      });
+   }else{
+      res.status(400).json({ 
+         error:true,
+      message: "Invalid data",
+      });
+   }
+};
+
 module.exports={addUser}
