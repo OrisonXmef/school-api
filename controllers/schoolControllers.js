@@ -1,15 +1,23 @@
-const school = require("../models/schoolSchema")
+const School = require("../models/schoolSchema")
 const createSchool=(req,res) =>{
-    const newSchool = new school({
+    const newSchool = new School({
         schoolname:req.body.schoolname,
         location:req.body.location,
-        Adress: req.body.adress,
+        Address: req.body.Address,
         category: req.body.category,
-        facility: req.body.facility,
+        facilities: req.body.facilities,
         numOfStudents: req.body.numOfStudents,
         contact: req.body.contact,
     })
     newSchool.save();
     res.status(200).json(newSchool)
 }
-module.exports={createSchool}
+
+// get schools
+ const getSchools =async(req, res)=>{
+    const schools= await School.find();
+    res.status(200).json(schools);
+ }
+
+
+module.exports={createSchool, getSchools}

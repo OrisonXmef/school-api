@@ -1,4 +1,6 @@
-const mongoose = require (mongoose)
+const mongoose = require ("mongoose")
+
+
 const schoolSchema = mongoose.Schema({
     schoolname:{
         type: String,
@@ -10,7 +12,7 @@ const schoolSchema = mongoose.Schema({
         required:true,
         unique: false,
     },
-    Adresss:{
+    Address:{
         gps: String,
         box:String
     },
@@ -21,18 +23,18 @@ category:{
 facilities:{
     type: Array,
     required: true,
-    maxlength: 3,
+   
 },
 numOfStudents:{
-    type: num,
+    type: String,
     required:true
 },
 contact:{
-    phone: num,
+    phone: String,
     email: String,
 }
 },{ 
     timestamps:true
 })
-const school=mongoose.model("school",schoolSchema)
-module.exports=school
+const School=mongoose.model("school",schoolSchema)
+module.exports=School
